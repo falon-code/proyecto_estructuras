@@ -2,6 +2,8 @@ package shared.jsonAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import Model.linkedlist.singly.LinkedList;
+
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,8 +36,8 @@ private final Object fileWriterLock;
      * @param classOfT Clase del objeto
      * @return Objeto de tipo E
      */
-    public List<E> getObjects(String pathFile, Class<E[]> classOfT) {
-        List<E> objList = new LinkedList<>();
+    public LinkedList<E> getObjects(String pathFile, Class<E[]> classOfT) {
+        LinkedList<E> objList = new LinkedList<>();
         try {
             Gson gson = new GsonBuilder().create();
             BufferedReader bufferedReader = new BufferedReader(new FileReader(pathFile));
@@ -57,7 +59,7 @@ private final Object fileWriterLock;
      * @param objects Objeto a escribir
      * @return True si se escribió correctamente, false en caso contrario
      */
-    public Boolean writeObjects(String pathFile, List<E> objects) {
+    public Boolean writeObjects(String pathFile, LinkedList<E> objects) {
         boolean successful = false;
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
