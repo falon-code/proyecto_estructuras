@@ -4,18 +4,16 @@
  */
 package view;
 
-import javax.swing.JFrame;
-
 /**
  *
  * @author Charly Cimino
  */
-public class AdminOptions extends javax.swing.JFrame {
+public class EmpleadoOptions extends javax.swing.JFrame {
 
     /**
-     * Creates new form AdminOptions
+     * Creates new form EmpleadoOptions
      */
-    public AdminOptions() {
+    public EmpleadoOptions() {
         initComponents();
     }
 
@@ -30,7 +28,7 @@ public class AdminOptions extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         GestionRutas = new javax.swing.JButton();
-        GestionEmpleados = new javax.swing.JButton();
+        GestionUsuarios = new javax.swing.JButton();
         GestionTrenes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,13 +50,13 @@ public class AdminOptions extends javax.swing.JFrame {
             }
         });
 
-        GestionEmpleados.setBackground(new java.awt.Color(37, 167, 240));
-        GestionEmpleados.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        GestionEmpleados.setForeground(new java.awt.Color(255, 255, 255));
-        GestionEmpleados.setText("Gestion Empleados");
-        GestionEmpleados.addActionListener(new java.awt.event.ActionListener() {
+        GestionUsuarios.setBackground(new java.awt.Color(37, 167, 240));
+        GestionUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        GestionUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        GestionUsuarios.setText("Gestion Usuarios");
+        GestionUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GestionEmpleadosActionPerformed(evt);
+                GestionUsuariosActionPerformed(evt);
             }
         });
 
@@ -82,10 +80,10 @@ public class AdminOptions extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(143, Short.MAX_VALUE)
+                .addContainerGap(155, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(GestionTrenes)
-                    .addComponent(GestionEmpleados)
+                    .addComponent(GestionUsuarios)
                     .addComponent(GestionRutas))
                 .addGap(122, 122, 122))
         );
@@ -97,7 +95,7 @@ public class AdminOptions extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(GestionRutas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(GestionEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GestionUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
@@ -115,28 +113,28 @@ public class AdminOptions extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void GestionRutasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionRutasMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GestionRutasMouseClicked
+
     private void GestionRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionRutasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GestionRutasActionPerformed
 
-    private void GestionEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionEmpleadosActionPerformed
+    private void GestionUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionUsuariosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_GestionEmpleadosActionPerformed
-
-    private void GestionTrenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionTrenesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GestionTrenesActionPerformed
-
-    private void GestionRutasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionRutasMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GestionRutasMouseClicked
+    }//GEN-LAST:event_GestionUsuariosActionPerformed
 
     private void GestionTrenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionTrenesMouseClicked
         Trenes options = new Trenes();
         options.setVisible(true);
         options.pack();
         options.setLocationRelativeTo(null);
-        options.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    }//GEN-LAST:event_GestionTrenesMouseClicked
+    }//GEN-LAST:event_GestionTrenesMouseClicked
+
+    private void GestionTrenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionTrenesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GestionTrenesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,28 +153,28 @@ public class AdminOptions extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmpleadoOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmpleadoOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmpleadoOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmpleadoOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminOptions().setVisible(true);
+                new EmpleadoOptions().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton GestionEmpleados;
     private javax.swing.JButton GestionRutas;
     private javax.swing.JButton GestionTrenes;
+    private javax.swing.JButton GestionUsuarios;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

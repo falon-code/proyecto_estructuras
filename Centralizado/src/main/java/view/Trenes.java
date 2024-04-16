@@ -4,8 +4,23 @@
  */
 package view;
 
-import Model.linkedlist.singly.LinkedList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Model.linkedlist.singly.LinkedList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Marca;
+import model.Tren;
+import shared.jsonAdapter.JsonAdapter;
 
 /**
  *
@@ -14,19 +29,25 @@ import javax.swing.table.DefaultTableModel;
 public class Trenes extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
+    private LinkedList<Tren> listaTrenes;
+    private final String pathFile = "C:\\Users\\tostiarepa64\\Downloads\\proyecto_estructuras\\Centralizado\\src\\main\\java\\baseDatos\\trenes.json";
+
+    
+    
 
     /**
      * Creates new form Trenes
      */
     public Trenes() {
         initComponents();
+         listaTrenes = new LinkedList<>();
         modelo = new DefaultTableModel();
         modelo.addColumn("Nombre");
         modelo.addColumn("ID");
         modelo.addColumn("Capacidad");
         modelo.addColumn("Marca");
         modelo.addColumn("Kilometraje");
-        modelo.addColumn("Vagones");
+        modelo.addColumn("Disponibilidad");
         this.Tabla.setModel(modelo);
 
     }
@@ -42,19 +63,14 @@ public class Trenes extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtKilometraje = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtCapacidad = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
         BtnAgregar = new javax.swing.JButton();
         BtnBajar = new javax.swing.JButton();
-        BtnGestionarVagones = new javax.swing.JButton();
         txtMarca = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtVagones = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,19 +82,7 @@ public class Trenes extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Capacidad:");
-
-        txtKilometraje.setToolTipText("");
-
         jLabel3.setText("Marca:");
-
-        txtCapacidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCapacidadActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Kilometraje:");
 
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,13 +111,6 @@ public class Trenes extends javax.swing.JFrame {
             }
         });
 
-        BtnGestionarVagones.setText("Gestionar Vagones");
-        BtnGestionarVagones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnGestionarVagonesActionPerformed(evt);
-            }
-        });
-
         txtMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mercedez-Benz", "Arnold" }));
         txtMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,11 +118,11 @@ public class Trenes extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("ID:");
+        jLabel4.setText("Vagones");
 
-        txtID.addActionListener(new java.awt.event.ActionListener() {
+        txtVagones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
+                txtVagonesActionPerformed(evt);
             }
         });
 
@@ -140,28 +137,19 @@ public class Trenes extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(BtnGestionarVagones)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BtnAgregar)
                         .addGap(18, 18, 18)
                         .addComponent(BtnBajar))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtKilometraje, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addComponent(txtVagones, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -175,25 +163,15 @@ public class Trenes extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtKilometraje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addComponent(BtnGestionarVagones)
-                        .addGap(33, 33, 33)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtVagones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BtnAgregar)
                             .addComponent(BtnBajar))))
@@ -204,85 +182,148 @@ public class Trenes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+     String nombre = txtNombre.getText();   
+    String capacidadStr = txtVagones.getText();
 
- LinkedList<Object> infoList = new LinkedList<>();
 
-    String nombre = txtNombre.getText();
-    String id = txtID.getText();
-    String capacidad = txtCapacidad.getText();
-    Object marca =txtMarca.getSelectedItem();
-    String kilometraje = txtKilometraje.getText();
- // Calcular la cantidad de vagones según la marca y la capacidad
-    int cantidadVagones = calcularCantidadVagones(marca, Integer.parseInt(capacidad));
-    infoList.add(nombre);
-    infoList.add(id);
-    infoList.add(capacidad);
-    infoList.add(marca);
-    infoList.add(kilometraje);
-    infoList.add(cantidadVagones); 
-    Object[] rowData = infoList.toArray();
-    modelo.addRow(rowData);
-    txtNombre.setText("");
-    txtID.setText("");
-    txtCapacidad.setText("");
-    txtKilometraje.setText("");
-    txtMarca.setSelectedIndex(-1);
+
+    // Obtener la marca seleccionada del JComboBox
+    String marcaStr = (String) txtMarca.getSelectedItem();
+    Marca marca;
+
+    // Convertir la cadena de marca a un objeto Marca
+    if (marcaStr.equals("Mercedez-Benz")) {
+        marca = Marca.MERCEDES_BENZ;
+    } else if (marcaStr.equals("Arnold")) {
+        marca = Marca.ARNOLD;
+    } else {
+        return;
+    }
+
+    // Verificar que la capacidad ingresada sea un número válido
+   int capacidad;
+    capacidad = Integer.parseInt(capacidadStr);
+
+    // Validar la capacidad según el tipo de tren
+    if (marca == Marca.MERCEDES_BENZ && (capacidad < 1 || capacidad > 28)) {
+        JOptionPane.showMessageDialog(this, "La capacidad para un tren Mercedes-Benz debe estar entre 1 y 28 vagones", "Error", JOptionPane.ERROR_MESSAGE);
+        return; // Salir del método si la capacidad no cumple con los requisitos
+    } 
+    if (marca == Marca.ARNOLD && (capacidad < 1 || capacidad > 32)) {
+    JOptionPane.showMessageDialog(this, "La capacidad para un tren Arnold debe estar entre 1 y 32 vagones", "Error", JOptionPane.ERROR_MESSAGE);
+    return; // Salir del método si la capacidad no cumple con los requisitos
+}
+
+    // Crear un nuevo objeto Tren con los datos obtenidos
+    Tren nuevoTren = new Tren(nombre, marca, capacidad);
+
+    // Agregar el tren a la lista enlazada
+    listaTrenes.add(nuevoTren);
+    
+    actualizarTabla();
+
+    // Limpiar los campos después de agregar el tren
+    limpiarCampos();
+   
+  // Crear un Gson para convertir objetos a JSON
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    // Convertir la lista de Trenes a un JsonArray de objetos Json
+    JsonArray trenesJsonArray = new JsonArray();
+    for (int i = 0; i < listaTrenes.size(); i++){
+           Tren tren = listaTrenes.get(i);
+        JsonObject trenJsonObject = new JsonObject();
+        trenJsonObject.addProperty("nombreTren", tren.getNombreTren());
+        trenJsonObject.addProperty("ID", tren.getIdTren());
+        trenJsonObject.addProperty("capacidadCarga", tren.getCapacidadCarga());
+        trenJsonObject.addProperty("marca", marcaStr);
+        trenJsonObject.addProperty("kilometraje", tren.getKilometraje());
+        trenJsonObject.addProperty("disponibilidad", tren.estaDisponible());
+        trenesJsonArray.add(trenJsonObject);
+    }
+
+    // Convertir el JsonArray a una cadena JSON formateada
+    String jsonString = gson.toJson(trenesJsonArray);
+
+    // Guardar la cadena JSON en el archivo
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\tostiarepa64\\Downloads\\proyecto_estructuras\\Centralizado\\src\\main\\java\\baseDatos\\trenes.json"))) {
+        writer.write(jsonString);
+        JOptionPane.showMessageDialog(this, "Datos guardados exitosamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+    } catch (IOException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al guardar los datos", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
-     // Método para calcular la cantidad de vagones según la marca y la capacidad
-    private int calcularCantidadVagones(Object marca, int capacidad) {
-        int cantidadVagones = 0;
-
-        if (marca.equals("Mercedez-Benz")) {
-            if (capacidad >= 1 && capacidad <= 28) {
-                cantidadVagones = capacidad / 2; // Un vagón de carga por cada dos de pasajeros
-            } 
-        } else if (marca.equals("Arnold")) {
-            if (capacidad >= 1 && capacidad <= 32) {
-                cantidadVagones = capacidad / 2; // Un vagón de carga por cada dos de pasajeros
-            }
-        }
-
-        return cantidadVagones;
-    }
-
-    // Método para actualizar el kilometraje acumulado del tren
-    private void actualizarKilometraje(int distanciaRecorrida) {
-        // Actualizar el kilometraje para cada fila en la tabla (si es necesario)
-        for (int i = 0; i < modelo.getRowCount(); i++) {
-            int kilometrajeActual = (int) modelo.getValueAt(i, 4); // Obtener kilometraje actual
-            modelo.setValueAt(kilometrajeActual + distanciaRecorrida, i, 4); // Sumar la distancia recorrida
-        }
-    }
     
     
+    private void actualizarTabla() {
+    // Limpiar el modelo de la tabla
+    modelo.setRowCount(0);
+
+    // Obtener el tamaño de la lista de trenes
+    int size = listaTrenes.size();
+
+    // Agregar los datos de los trenes al modelo de la tabla
+    for (int i = 0; i < size; i++) {
+        Tren tren = listaTrenes.get(i);
+        
+                String marcaSeleccionada = (String) txtMarca.getSelectedItem(); // Suponiendo que el JComboBox contiene strings de marcas
+
+        // Agregar fila a la tabla con los datos del tren
+        Object[] fila = {
+            tren.getNombreTren(),
+            tren.getIdTren(),
+            tren.getCapacidadCarga(),
+            marcaSeleccionada,
+            tren.getKilometraje(),
+            tren.estaDisponible()
+        };
+        modelo.addRow(fila);
+
+    }
+}
+
+private String calcularDisponibilidad(Tren tren) {
+    // Aquí debes implementar la lógica para determinar la disponibilidad
+    // Por ejemplo, podrías tener un campo en la clase Tren que indique si está disponible o no
+    // Y aquí puedes verificar ese campo y devolver "Disponible" o "No Disponible"
+    // Ejemplo:
+    if (tren.estaDisponible()) {
+        return "Disponible";
+    } else {
+        return "No Disponible";
+    }
+}
+
+ 
+     private void limpiarCampos() {
+        // Limpiar los campos de entrada después de agregar un tren
+        txtNombre.setText("");
+        txtVagones.setText("");
+    }
+
     
     private void BtnBajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBajarActionPerformed
-        int fila = Tabla.getRowCount();
+       // Obtener el índice seleccionado en la tabla
+         int fila = Tabla.getRowCount();
         for (int i = fila - 1; i >= 0; i--) {
             modelo.removeRow(i);
         }
     }//GEN-LAST:event_BtnBajarActionPerformed
 
-    private void BtnGestionarVagonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGestionarVagonesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnGestionarVagonesActionPerformed
 
+    
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtCapacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCapacidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCapacidadActionPerformed
-
     private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtMarcaActionPerformed
 
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+    private void txtVagonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVagonesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
+    }//GEN-LAST:event_txtVagonesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,18 +363,13 @@ public class Trenes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgregar;
     private javax.swing.JButton BtnBajar;
-    private javax.swing.JButton BtnGestionarVagones;
     private javax.swing.JTable Tabla;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtCapacidad;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtKilometraje;
     private javax.swing.JComboBox<String> txtMarca;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtVagones;
     // End of variables declaration//GEN-END:variables
 }

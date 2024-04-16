@@ -1,0 +1,26 @@
+[
+  {
+    "nombreTren": "12",
+    "ID": "M1",
+    "capacidadCarga": 2,
+    "marca": "Arnold",
+    "kilometraje": 0,
+    "disponibilidad": false
+  },
+  {
+    "nombreTren": "3",
+    "ID": "M2",
+    "capacidadCarga": 28,
+    "marca": "Arnold",
+    "kilometraje": 0,
+    "disponibilidad": false
+  },
+  {
+    "nombreTren": "1",
+    "ID": "M3",
+    "capacidadCarga": 2,
+    "marca": "Arnold",
+    "kilometraje": 0,
+    "disponibilidad": false
+  }
+]

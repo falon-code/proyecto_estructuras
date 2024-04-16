@@ -4,7 +4,13 @@
  */
 package view;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import org.json.JSONObject;
+
 
 /**
  *
@@ -39,7 +45,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jButtonLogin = new javax.swing.JButton();
+        Login = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -116,18 +122,18 @@ public class LoginAdmin extends javax.swing.JFrame {
         jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPasswordField1.setForeground(new java.awt.Color(228, 241, 254));
 
-        jButtonLogin.setBackground(new java.awt.Color(37, 167, 240));
-        jButtonLogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButtonLogin.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonLogin.setText("Login");
-        jButtonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        Login.setBackground(new java.awt.Color(37, 167, 240));
+        Login.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Login.setForeground(new java.awt.Color(255, 255, 255));
+        Login.setText("Login");
+        Login.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonLoginMouseClicked(evt);
+                LoginMouseClicked(evt);
             }
         });
-        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+        Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoginActionPerformed(evt);
+                LoginActionPerformed(evt);
             }
         });
 
@@ -155,7 +161,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonLogin))
+                        .addComponent(Login))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jTextField1)
                         .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))
@@ -175,7 +181,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -212,21 +218,48 @@ public class LoginAdmin extends javax.swing.JFrame {
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabelMinMouseClicked
 
-    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLoginActionPerformed
+    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
+         String username = jTextField1.getText();
+        String password = new String(jPasswordField1.getPassword());
+
+        try {
+            // Lee el archivo JSON
+            String jsonContent = new String(Files.readAllBytes(Paths.get("C:\\Users\\tostiarepa64\\Downloads\\proyecto_estructuras\\Centralizado\\src\\main\\java\\baseDatos\\admin.json")));
+            JSONObject jsonObject = new JSONObject(jsonContent);
+            JSONObject adminObj = jsonObject.getJSONObject("admin");
+
+            // Obtiene las credenciales del JSON
+            String storedUsername = adminObj.getString("username");
+            String storedPassword = adminObj.getString("password");
+
+            // Valida las credenciales ingresadas
+            if (username.equals(storedUsername) && password.equals(storedPassword)) {
+                // Credenciales correctas, abre la ventana AdminOptions
+                AdminOptions options = new AdminOptions();
+                options.setVisible(true);
+                options.setLocationRelativeTo(null);
+                dispose(); // Cierra la ventana de LoginAdmin
+            } else {
+                // Credenciales incorrectas, muestra un mensaje de error
+                JOptionPane.showMessageDialog(this, "Credenciales incorrectas", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al leer las credenciales", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_LoginActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButtonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginMouseClicked
+    private void LoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseClicked
        AdminOptions options = new AdminOptions();
        options.setVisible(true);
        options.pack();
        options.setLocationRelativeTo(null);
        options.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }//GEN-LAST:event_jButtonLoginMouseClicked
+    }//GEN-LAST:event_LoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -264,8 +297,8 @@ public class LoginAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Login;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButtonLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

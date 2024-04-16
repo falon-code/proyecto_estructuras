@@ -17,7 +17,7 @@ private final Object fileWriterLock;
     /**
      * Constructor de la clase
      */
-    private JsonAdapter() {
+    public JsonAdapter() {
         this.fileWriterLock = new Object();
     }
 

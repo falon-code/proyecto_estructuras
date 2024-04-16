@@ -6,105 +6,117 @@ import Model.linkedlist.singly.LinkedList;
 import model.Vagone.Vagon;
 public class Tren implements Serializable{
 
+    private static int mercedesIdCounter = 0;
+    private static int arnoldIdCounter = 0;
+
     private String nombreTren;
-    private int idTren;
-    private int capacidadCarga;
+    private String idTren;
+    private int capacidadTotal;
     private int kilometraje;
-    private  LinkedList<Vagon> vagones;
+    private LinkedList<Vagon> vagones;
     private Marca marca;
+    private boolean disponible; 
+
+    public Tren(String nombreTren, Marca marca, int capacidadTotal) {
+        this.nombreTren = nombreTren;
+        this.marca = this.marca;
+        this.capacidadTotal = capacidadTotal;
+        this.kilometraje = 0;
+        this.vagones = new LinkedList<>();
+        
+        // Generate sequential ID based on the train's brand
+        if (marca == Marca.MERCEDES_BENZ) {
+            mercedesIdCounter++;
+            this.idTren = "M" + mercedesIdCounter;
+        } else if (marca == Marca.ARNOLD) {
+            arnoldIdCounter++;
+            this.idTren = "A" + arnoldIdCounter;
+        }
+    }
+
+    public Tren() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     
-    public Tren(String nombreTren, int idTren, int capacidadCarga, int kilometraje, LinkedList<Vagon> vagones,
-            Marca marca) {
-        this.nombreTren = nombreTren;
-        this.idTren = idTren;
-        this.capacidadCarga = capacidadCarga;
-        this.kilometraje = kilometraje;
-        this.vagones = vagones;
-        this.marca = marca;
-    }
+
+    // Getters and Setters
 
     public String getNombreTren() {
         return nombreTren;
     }
 
-
-    public void setNombreTren(String nombreTren) {
-        this.nombreTren = nombreTren;
-    }
-
-
-    public int getIdTren() {
+    public String getIdTren() {
         return idTren;
     }
 
-
-    public void setIdTren(int idTren) {
-        this.idTren = idTren;
-    }
-
-
     public int getCapacidadCarga() {
-        return capacidadCarga;
+        return capacidadTotal;
     }
-
 
     public void setCapacidadCarga(int capacidadCarga) {
-        this.capacidadCarga = capacidadCarga;
+        this.capacidadTotal = capacidadCarga;
     }
-
 
     public int getKilometraje() {
         return kilometraje;
     }
 
-
     public void setKilometraje(int kilometraje) {
         this.kilometraje = kilometraje;
     }
-
 
     public LinkedList<Vagon> getVagones() {
         return vagones;
     }
 
-
     public void setVagones(LinkedList<Vagon> vagones) {
         this.vagones = vagones;
     }
 
-
     public Marca getMarca() {
         return marca;
     }
-
-
     public void setMarca(Marca marca) {
         this.marca = marca;
     }
 
-    
+    // Methods to add, remove, and modify wagons
     public boolean agregarVagon(Vagon vagon) {
-        return vagones.add(vagon);  
+        return vagones.add(vagon);
     }
 
     public boolean eliminarVagon(Vagon vagon) {
-        return vagones.remove(vagon); 
+        return vagones.remove(vagon);
     }
 
     public boolean consultarVagon(Vagon vagon) {
-        return vagones.contains(vagon);  // Verifica si el vagón está en la lista de vagones del tren
+        return vagones.contains(vagon);
     }
 
     public boolean modificarVagon(Vagon vagonAntiguo, Vagon vagonNuevo) {
         if (vagones.contains(vagonAntiguo)) {
-            vagones.remove(vagonAntiguo);  
-            vagones.add(vagonNuevo);  
+            vagones.remove(vagonAntiguo);
+            vagones.add(vagonNuevo);
             return true;
         } else {
-            return false;  // El vagón antiguo no existe en la lista de vagones del tren
+            return false;
         }
     }
+        public boolean estaDisponible() {
+        return disponible;
+    }
 
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+    
 
 }
+
+
+
+
+
+
+
