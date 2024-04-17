@@ -34,6 +34,9 @@ public class Tren implements Serializable{
         }
     }
 
+    public Tren() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     
 
@@ -108,10 +111,6 @@ public class Tren implements Serializable{
         this.disponible = disponible;
     }
     
-    public void setIdTren(String id) {
-        this.idTren = id;
-    }
-
 
 }
 

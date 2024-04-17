@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -50,8 +49,6 @@ public class Trenes extends javax.swing.JFrame {
         modelo.addColumn("Kilometraje");
         modelo.addColumn("Disponibilidad");
         this.Tabla.setModel(modelo);
-            cargarDatosDesdeJSON();
-
 
     }
 
@@ -183,50 +180,7 @@ public class Trenes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void cargarDatosDesdeJSON() {
-    Gson gson = new Gson();
-    try {
-        String jsonString = new String(Files.readAllBytes(Paths.get(pathFile)));
-        JsonArray jsonArray = gson.fromJson(jsonString, JsonArray.class);
 
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
-            String nombre = jsonObject.get("nombreTren").getAsString();
-            String id = jsonObject.get("ID").getAsString();
-            int capacidad = jsonObject.get("capacidadCarga").getAsInt();
-            String marcaStr = jsonObject.get("marca").getAsString();
-            Marca marca = marcaStr.equals("Mercedez-Benz") ? Marca.MERCEDES_BENZ : Marca.ARNOLD;
-            int kilometraje = jsonObject.get("kilometraje").getAsInt();
-            boolean disponibilidad = jsonObject.get("disponibilidad").getAsBoolean();
-
-            // Crear un nuevo objeto Tren y agregarlo a la lista de trenes
-            Tren tren = new Tren(nombre, marca, capacidad);
-            tren.setIdTren(id);
-            tren.setKilometraje(kilometraje);
-            tren.setDisponible(disponibilidad);
-            listaTrenes.add(tren);
-
-            // Agregar fila a la tabla con los datos del tren
-            Object[] fila = {
-                nombre,
-                id,
-                capacidad,
-                marcaStr,
-                kilometraje,
-                disponibilidad ? "Disponible" : "No Disponible"
-            };
-            modelo.addRow(fila);
-        }
-
-        JOptionPane.showMessageDialog(this, "Datos cargados exitosamente desde el archivo JSON", "Carga Exitosa", JOptionPane.INFORMATION_MESSAGE);
-    } catch (IOException e) {
-        System.err.println("Error al leer datos desde el archivo JSON: " + e.getMessage());
-        JOptionPane.showMessageDialog(this, "Error al cargar datos desde el archivo JSON", "Error de Carga", JOptionPane.ERROR_MESSAGE);
-    } catch (JsonParseException e) {
-        System.err.println("Error al parsear datos JSON: " + e.getMessage());
-        JOptionPane.showMessageDialog(this, "Error al parsear datos JSON", "Error de Parseo", JOptionPane.ERROR_MESSAGE);
-    }
-}
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
      String nombre = txtNombre.getText();   
     String capacidadStr = txtVagones.getText();
@@ -349,59 +303,13 @@ private String calcularDisponibilidad(Tren tren) {
         txtVagones.setText("");
     }
 
-    private void removeTrain(int index) {
-    // Check if the index is within the bounds of the list
-    if (index >= 0 && index < listaTrenes.size()) {
-        // Get the train at the specified index
-        Tren trenToRemove = listaTrenes.get(index);
-
-        // Remove the train from the linked list
-        listaTrenes.remove(trenToRemove);
-
-        // Update the table model
-        modelo.removeRow(index);
-    } else {
-        JOptionPane.showMessageDialog(this, "El índice seleccionado no es válido", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-}
+    
     private void BtnBajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBajarActionPerformed
-     // Get the selected row index from the table
-    int rowIndex = Tabla.getSelectedRow();
-
-    // Check if a row is selected
-    if (rowIndex != -1) {
-        // Remove the selected train from the linked list and update the table model
-        removeTrain(rowIndex);
-
-        // Create a Gson instance for converting objects to JSON
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        // Read the JSON file
-        String jsonString = null;
-        try {
-            jsonString = new String(Files.readAllBytes(Paths.get(pathFile)));
-        } catch (IOException ex) {
-            Logger.getLogger(Trenes.class.getName()).log(Level.SEVERE, null, ex);
+       // Obtener el índice seleccionado en la tabla
+         int fila = Tabla.getRowCount();
+        for (int i = fila - 1; i >= 0; i--) {
+            modelo.removeRow(i);
         }
-        JsonArray trenesJsonArray = gson.fromJson(jsonString, JsonArray.class);
-
-        // Remove the corresponding object from the JsonArray
-        trenesJsonArray.remove(rowIndex);
-
-        // Convert the updated JsonArray to a formatted JSON string
-        jsonString = gson.toJson(trenesJsonArray);
-
-        // Save the updated JSON string to the file
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\tostiarepa64\\Downloads\\proyecto_estructuras\\Centralizado\\src\\main\\java\\baseDatos\\trenes.json"))) {
-            writer.write(jsonString);
-            JOptionPane.showMessageDialog(this, "Datos guardados exitosamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al guardar los datos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "Seleccione un tren para dar de baja", "Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_BtnBajarActionPerformed
 
 
