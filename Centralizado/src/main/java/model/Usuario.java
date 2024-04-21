@@ -1,15 +1,15 @@
 package model;
 
-public abstract class Usuario {
+public  class Usuario {
     private String usuario;
-    private int contraseña;
+    private String contraseña;
     private String nombre;
-    private int identificacion;
+    private String identificacion;
     private String direccion;
-    private int telefono;
+    private String telefono;
 
  
-    public Usuario(String usuario, int contraseña, String nombre, int identificacion, String direccion, int telefono) {
+    public Usuario(String usuario, String contraseña, String nombre, String identificacion, String direccion, String telefono) {
         this.usuario = usuario;
         this.contraseña = contraseña;
         this.nombre = nombre;
@@ -26,11 +26,11 @@ public abstract class Usuario {
         this.usuario = usuario;
     }
 
-    public int getContraseña() {
+    public String getContraseña() {
         return contraseña;
     }
 
-    public void setContraseña(int contraseña) {
+    public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
 
@@ -42,11 +42,11 @@ public abstract class Usuario {
         this.nombre = nombre;
     }
 
-    public int getIdentificacion() {
+    public String getIdentificacion() {
         return identificacion;
     }
 
-    public void setIdentificacion(int identificacion) {
+    public void setIdentificacion(String identificacion) {
         this.identificacion = identificacion;
     }
 
@@ -58,11 +58,11 @@ public abstract class Usuario {
         this.direccion = direccion;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 }

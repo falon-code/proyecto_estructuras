@@ -1,0 +1,12 @@
+{
+  "empleados": [
+    {
+      "usuario": "user1",
+      "contraseña": "123",
+      "nombre": "jesus",
+      "identificacion": "12345",
+      "direccion": "calle 13C",
+      "telefono": "3123145"
+    }
+  ]
+}

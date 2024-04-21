@@ -28,7 +28,6 @@ public class EmpleadoOptions extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         GestionRutas = new javax.swing.JButton();
-        GestionUsuarios = new javax.swing.JButton();
         GestionTrenes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,25 +49,10 @@ public class EmpleadoOptions extends javax.swing.JFrame {
             }
         });
 
-        GestionUsuarios.setBackground(new java.awt.Color(37, 167, 240));
-        GestionUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        GestionUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        GestionUsuarios.setText("Gestion Usuarios");
-        GestionUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GestionUsuariosActionPerformed(evt);
-            }
-        });
-
         GestionTrenes.setBackground(new java.awt.Color(37, 167, 240));
         GestionTrenes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         GestionTrenes.setForeground(new java.awt.Color(255, 255, 255));
         GestionTrenes.setText("Gestion Trenes");
-        GestionTrenes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GestionTrenesMouseClicked(evt);
-            }
-        });
         GestionTrenes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GestionTrenesActionPerformed(evt);
@@ -83,20 +67,17 @@ public class EmpleadoOptions extends javax.swing.JFrame {
                 .addContainerGap(155, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(GestionTrenes)
-                    .addComponent(GestionUsuarios)
                     .addComponent(GestionRutas))
-                .addGap(122, 122, 122))
+                .addGap(131, 131, 131))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(93, 93, 93)
                 .addComponent(GestionTrenes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(GestionRutas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(GestionUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -121,19 +102,10 @@ public class EmpleadoOptions extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_GestionRutasActionPerformed
 
-    private void GestionUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionUsuariosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GestionUsuariosActionPerformed
-
-    private void GestionTrenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionTrenesMouseClicked
-        Trenes options = new Trenes();
-        options.setVisible(true);
-        options.pack();
-        options.setLocationRelativeTo(null);
-    }//GEN-LAST:event_GestionTrenesMouseClicked
-
     private void GestionTrenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionTrenesActionPerformed
-        // TODO add your handling code here:
+         Trenes options = new Trenes();
+        options.setVisible(true);
+         this.setVisible(false);
     }//GEN-LAST:event_GestionTrenesActionPerformed
 
     /**
@@ -174,7 +146,6 @@ public class EmpleadoOptions extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GestionRutas;
     private javax.swing.JButton GestionTrenes;
-    private javax.swing.JButton GestionUsuarios;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

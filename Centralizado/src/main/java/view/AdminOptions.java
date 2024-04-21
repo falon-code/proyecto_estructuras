@@ -66,11 +66,6 @@ public class AdminOptions extends javax.swing.JFrame {
         GestionTrenes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         GestionTrenes.setForeground(new java.awt.Color(255, 255, 255));
         GestionTrenes.setText("Gestion Trenes");
-        GestionTrenes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GestionTrenesMouseClicked(evt);
-            }
-        });
         GestionTrenes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GestionTrenesActionPerformed(evt);
@@ -120,23 +115,20 @@ public class AdminOptions extends javax.swing.JFrame {
     }//GEN-LAST:event_GestionRutasActionPerformed
 
     private void GestionEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionEmpleadosActionPerformed
-        // TODO add your handling code here:
+        gestionEmpleados e = new gestionEmpleados();
+        e.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_GestionEmpleadosActionPerformed
 
     private void GestionTrenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionTrenesActionPerformed
-        // TODO add your handling code here:
+                TrenesAdmin options = new TrenesAdmin();
+                options.setVisible(true);
+                this.setVisible(false);
     }//GEN-LAST:event_GestionTrenesActionPerformed
 
     private void GestionRutasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionRutasMouseClicked
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_GestionRutasMouseClicked
-
-    private void GestionTrenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestionTrenesMouseClicked
-        Trenes options = new Trenes();
-        options.setVisible(true);
-        options.pack();
-        options.setLocationRelativeTo(null);
-        options.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    }//GEN-LAST:event_GestionTrenesMouseClicked
 
     /**
      * @param args the command line arguments

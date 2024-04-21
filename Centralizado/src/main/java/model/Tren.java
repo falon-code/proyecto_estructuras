@@ -17,26 +17,15 @@ public class Tren implements Serializable{
     private Marca marca;
     private boolean disponible; 
 
-    public Tren(String nombreTren, Marca marca, int capacidadTotal) {
+     public Tren(String nombreTren, Marca marca, int capacidadTotal) {
         this.nombreTren = nombreTren;
-        this.marca = this.marca;
+        this.marca = marca;
         this.capacidadTotal = capacidadTotal;
         this.kilometraje = 0;
         this.vagones = new LinkedList<>();
-        
-        // Generate sequential ID based on the train's brand
-        if (marca == Marca.MERCEDES_BENZ) {
-            mercedesIdCounter++;
-            this.idTren = "M" + mercedesIdCounter;
-        } else if (marca == Marca.ARNOLD) {
-            arnoldIdCounter++;
-            this.idTren = "A" + arnoldIdCounter;
-        }
     }
 
-    public Tren() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
 
     
 
@@ -49,6 +38,12 @@ public class Tren implements Serializable{
     public String getIdTren() {
         return idTren;
     }
+
+    public void setIdTren(String idTren) {
+        this.idTren = idTren;
+    }
+    
+    
 
     public int getCapacidadCarga() {
         return capacidadTotal;

@@ -1,26 +1,17 @@
-[
-  {
-    "nombreTren": "12",
-    "ID": "M1",
-    "capacidadCarga": 2,
-    "marca": "Arnold",
-    "kilometraje": 0,
-    "disponibilidad": false
-  },
-  {
-    "nombreTren": "3",
-    "ID": "M2",
-    "capacidadCarga": 28,
-    "marca": "Arnold",
-    "kilometraje": 0,
-    "disponibilidad": false
-  },
-  {
-    "nombreTren": "1",
-    "ID": "M3",
-    "capacidadCarga": 2,
-    "marca": "Arnold",
-    "kilometraje": 0,
-    "disponibilidad": false
-  }
-]
+{"trenes": [
+    {
+        "marca": "Mercedez-Benz",
+        "disponibilidad": false,
+        "kilometraje": 0,
+        "capacidadCarga": 2,
+        "nombreTren": "1"
+    },
+    {
+        "marca": "Arnold",
+        "disponibilidad": false,
+        "kilometraje": 0,
+        "ID": "Mfc546db4",
+        "capacidadCarga": 2,
+        "nombreTren": "1"
+    }
+]}

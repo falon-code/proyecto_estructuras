@@ -2,20 +2,16 @@ package model;
 
 public class Empleado extends Usuario {
 
-    private String cargo;
-    
-    public Empleado(String usuario, int contraseña, String nombre, int identificacion, String direccion, int telefono,
-            String cargo) {
+    public Empleado(String usuario, String contraseña, String nombre, String identificacion, String direccion, String telefono) {
         super(usuario, contraseña, nombre, identificacion, direccion, telefono);
-        this.cargo = cargo;
     }
 
-    public String getCargo() {
-        return cargo;
-    }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
+   
+    
+    
+  
+
+
 
 }

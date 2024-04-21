@@ -33,7 +33,7 @@ import shared.jsonAdapter.JsonAdapter;
  *
  * @author Charly Cimino
  */
-public class Trenes extends javax.swing.JFrame {
+public class TrenesAdmin extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
     private LinkedList<Tren> listaTrenes;
@@ -42,7 +42,7 @@ public class Trenes extends javax.swing.JFrame {
     /**
      * Creates new form Trenes
      */
-    public Trenes() {
+    public TrenesAdmin() {
         initComponents();
         listaTrenes = new LinkedList<>();
         modelo = new DefaultTableModel();
@@ -511,9 +511,10 @@ public class Trenes extends javax.swing.JFrame {
     }//GEN-LAST:event_txtVagonesActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-            EmpleadoOptions o = new EmpleadoOptions();
-            o.setVisible(true);
-            this.setVisible(false);
+        AdminOptions a = new AdminOptions();
+        a.setVisible(true);
+        this.setVisible(false);
+        
     }//GEN-LAST:event_BtnVolverActionPerformed
 
     private void BtnVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnVolverMouseClicked
@@ -537,20 +538,21 @@ public class Trenes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Trenes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TrenesAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Trenes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TrenesAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Trenes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TrenesAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Trenes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TrenesAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Trenes().setVisible(true);
+                new TrenesAdmin().setVisible(true);
             }
         });
     }

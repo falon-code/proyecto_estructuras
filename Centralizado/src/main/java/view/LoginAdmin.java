@@ -4,10 +4,13 @@
  */
 package view;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import org.json.JSONObject;
 
@@ -220,33 +223,64 @@ public class LoginAdmin extends javax.swing.JFrame {
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
          String username = jTextField1.getText();
-        String password = new String(jPasswordField1.getPassword());
+    String password = new String(jPasswordField1.getPassword());
 
-        try {
-            // Lee el archivo JSON
-            String jsonContent = new String(Files.readAllBytes(Paths.get("C:\\Users\\tostiarepa64\\Downloads\\proyecto_estructuras\\Centralizado\\src\\main\\java\\baseDatos\\admin.json")));
-            JSONObject jsonObject = new JSONObject(jsonContent);
-            JSONObject adminObj = jsonObject.getJSONObject("admin");
+    try {
+        // Lee el archivo JSON para administradores
+        String adminJsonFilePath = "C:\\Users\\tostiarepa64\\Downloads\\proyecto_estructuras\\Centralizado\\src\\main\\java\\baseDatos\\admin.json";
+        String adminJsonContent = new String(Files.readAllBytes(Paths.get(adminJsonFilePath)));
+        JSONObject adminJsonObject = new JSONObject(adminJsonContent);
 
-            // Obtiene las credenciales del JSON
-            String storedUsername = adminObj.getString("username");
-            String storedPassword = adminObj.getString("password");
+        // Lee el archivo JSON para empleados
+        String empleadosJsonFilePath = "C:\\Users\\tostiarepa64\\Downloads\\proyecto_estructuras\\Centralizado\\src\\main\\java\\baseDatos\\empleados.json";
+        String empleadosJsonContent = new String(Files.readAllBytes(Paths.get(empleadosJsonFilePath)));
+        JSONObject empleadosJsonObject = new JSONObject(empleadosJsonContent);
 
-            // Valida las credenciales ingresadas
-            if (username.equals(storedUsername) && password.equals(storedPassword)) {
-                // Credenciales correctas, abre la ventana AdminOptions
-                AdminOptions options = new AdminOptions();
-                options.setVisible(true);
-                options.setLocationRelativeTo(null);
+        // Verifica las credenciales para administradores
+        if (adminJsonObject.has("admin")) {
+            JSONObject adminObj = adminJsonObject.getJSONObject("admin");
+            String storedAdminUsername = adminObj.getString("username");
+            String storedAdminPassword = adminObj.getString("password");
+
+            if (username.equals(storedAdminUsername) && password.equals(storedAdminPassword)) {
+                // Credenciales de administrador correctas, abre la ventana AdminOptions
+                AdminOptions adminOptions = new AdminOptions();
+                adminOptions.setVisible(true);
+                adminOptions.setLocationRelativeTo(null);
                 dispose(); // Cierra la ventana de LoginAdmin
-            } else {
-                // Credenciales incorrectas, muestra un mensaje de error
-                JOptionPane.showMessageDialog(this, "Credenciales incorrectas", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+                return; // Sale del método después de abrir la ventana
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al leer las credenciales", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        // Verifica las credenciales para empleados
+        if (empleadosJsonObject.has("empleados")) {
+            JSONArray empleadosArray = empleadosJsonObject.getJSONArray("empleados");
+
+            for (int i = 0; i < empleadosArray.length(); i++) {
+                JSONObject empleadoObj = empleadosArray.getJSONObject(i);
+                String storedEmpleadoUsername = empleadoObj.getString("usuario");
+                String storedEmpleadoPassword = empleadoObj.getString("contraseña");
+
+                if (username.equals(storedEmpleadoUsername) && password.equals(storedEmpleadoPassword)) {
+                    // Credenciales de empleado correctas, abre la ventana EmpleadoOptions
+                    EmpleadoOptions employeeOptions = new EmpleadoOptions();
+                    employeeOptions.setVisible(true);
+                    employeeOptions.setLocationRelativeTo(null);
+                    dispose(); // Cierra la ventana de LoginAdmin
+                    return; // Sale del método después de abrir la ventana
+                }
+            }
+        }
+
+        // Si las credenciales no coinciden con ningún usuario registrado
+        JOptionPane.showMessageDialog(this, "Credenciales incorrectas", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+    } catch (IOException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al leer las credenciales", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (JSONException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error en el formato JSON", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_LoginActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
